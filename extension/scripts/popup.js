@@ -1,7 +1,16 @@
 window.onload = () => {
-    // let but = document.createElement("input");
-    // but.setAttribute("id", `addButton${i + rid}`);
-    // but.setAttribute("class", "cell");
-    // but.setAttribute("type", "button");
-    // document.getElementById(`r${rn}`).appendChild(but);
+    document.getElementById("popupModalButton").addEventListener("click", testbutton);
+}
+
+function testbutton() {
+    fetch("http://192.168.239.83:8080/", {
+        method: 'GET',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(res => console.log(res))
 }
