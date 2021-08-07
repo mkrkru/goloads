@@ -1,0 +1,12 @@
+.Circle {
+    border-radius: 50%;
+}
+
+.UserHeader {
+    width: 60px;
+    height: 60px;
+}
+
+.Center {
+    text-align : center;
+}

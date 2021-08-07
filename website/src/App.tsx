@@ -7,7 +7,15 @@ import { AnalyticsComponent } from './adminpanel/analytics/AnalyticsComponent';
 function App() {
   return (
     <AdminPanelLayout barComponents={[
-      new AnalyticsComponent({})
+      new AnalyticsComponent({clicksData : [
+        [26, 19],
+        [32, 31],
+        [33, 10],
+        [25, 32],
+        [32, 12],
+        [41, 29],
+        [32, 23]
+      ]})
     ]}/>
   );
 }

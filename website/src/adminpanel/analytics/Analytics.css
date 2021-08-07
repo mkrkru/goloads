@@ -1,0 +1,19 @@
+.ClickAnalyticsTextBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: inherit;
+    font-size: 200%;
+}
+
+.ClickAnalyticsAddInformation {
+    color : gray;
+    font-size: 50%;
+    align-self: baseline;
+}
+
+.ClickAnalyticsBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}

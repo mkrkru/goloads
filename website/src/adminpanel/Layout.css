@@ -1,33 +1,53 @@
 .AdminLayout {
-    display : flex;
     background-color: rgb(250, 255, 255);
-    flex-direction : raw;
-    flex-shrink: 10;
+}
+
+.AdminLayoutUserHeader {
+    text-align: right;
+    margin-right: 20px;
 }
 
 .AdminLayoutLeftBar {
     display : flex;
     flex-direction: column;
     align-items: center;
-    width: 8vh;
-    height: 100vh;
-    /* border-right: 1px solid rgb(255, 243, 243); */
+    width: 120px;
+    height: inherit;
+    /* border-right: 1px solid #202124; */
     /* background-color: azure; */
 }
 
 .AdminLayoutButton {
     background-color: rgb(145, 221, 30);
     border-radius: 50%;
-    width: 6vh;
-    height: 6vh;
+    width: 60px;
+    height: 60px;
 }
 
 .AdminLayoutLeftBarMargin {
-    margin-bottom: 2vh;
+    margin-bottom: 20px;
+}
+
+.AdminLayoutContentBody {
+    /* flex-grow : 9; */
+    height: 100%;
+    /* background-color: Azure; */
 }
 
 .AdminLayoutBody {
-    flex-grow : 9;
-    height: 100vh;
-    /* background-color: Azure; */
+    display : flex;
+    align-items: stretch;
+    flex-direction: row;
+    /* text-align: right; */
+    width: 100%;
+    /* min-height: 90vh; */
+}
+
+.AdminLayoutHeader {
+    width: 100%;
+    height: 90px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items : center;
+    border-bottom: 1px solid #202124;
 }
