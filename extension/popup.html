@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>GoloAds</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/popup.css">
   <script src="./scripts/popup.js"></script>
 </head>
 
@@ -17,34 +17,9 @@
     </h1>
   </div>
 
-  <div class="modal-content">
-    <p>Описание</p>
-  </div>
-
-  <div class="modal-icons">
-    <div class="flex-container">
-      <div class="flex">
-        
-        <a href="#" target="_blank">
-          <i class="fa fa-globe"></i>
-        </a>
-      </div>
-      <div class="flex">
-        <a href="#" target="_blank">
-          <i class="fa fa-telegram"></i>
-        </a>
-      </div>
-      <div class="flex">
-        <a href="#" target="_blank">
-          <i class="fa fa-vk"></i>
-        </a>
-      </div>
-      <div class="flex">
-        <a href="#" target="_blank">
-          <i class="fa fa-facebook"></i>
-        </a>
-      </div>
-    </div>
+  <div id="addableContent" class="modal-content">
+    <button id="popupModalButtonGet" class="popupButton popupButtonGreen">get</button>
+    <button id="popupModalButtonSend" class="popupButton popupButtonRed">send</button>
   </div>
 </body>
 

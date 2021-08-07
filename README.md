@@ -1,7 +1,7 @@
 # GoloAds
 GoloAds представляет из себя плагин, который будет встраивать рекламные баннеры в любые страницы в интернете, который укажет рекламодатель. Установившие его в свою очередь будут получать вознаграждение за установку, а также за просмотр объявлений. При удалении плагина мы незамедлительно узнаем об этом и прекратим отправку денежных средств.
 
-##### [Google Docs](https://docs.google.com/document/d/1-RmQtZMIU262lwO9hwVKY08qW9FarShcWVkiApywG3I/edit?usp=sharing)
+### [Google Docs](https://docs.google.com/document/d/1-RmQtZMIU262lwO9hwVKY08qW9FarShcWVkiApywG3I/edit?usp=sharing)
 
 ### admin_panel
 > Административная панель
