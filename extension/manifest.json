@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
 	"name": "GoloAds",
-	"description": "Описание расширения",
-	"version": "1.0.0",
+	"description": "GoloAds - получайте деньги за просмотр рекламы!",
+	"version": "0.0.1",
 	"icons": {
 		"128": "./images/icon.png"
 	},
