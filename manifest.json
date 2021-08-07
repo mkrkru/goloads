@@ -12,5 +12,9 @@
 	},
 	"permissions": [
 		"activeTab"
-	]
+	],
+	"content_scripts" : [{
+		"css" : ["content_style.css"],
+		"matches" : ["https://www.google.com/*"]
+	}]
 }
