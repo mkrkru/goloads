@@ -1,0 +1,33 @@
+.AdminLayout {
+    display : flex;
+    background-color: rgb(250, 255, 255);
+    flex-direction : raw;
+    flex-shrink: 10;
+}
+
+.AdminLayoutLeftBar {
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    width: 8vh;
+    height: 100vh;
+    /* border-right: 1px solid rgb(255, 243, 243); */
+    /* background-color: azure; */
+}
+
+.AdminLayoutButton {
+    background-color: rgb(145, 221, 30);
+    border-radius: 50%;
+    width: 6vh;
+    height: 6vh;
+}
+
+.AdminLayoutLeftBarMargin {
+    margin-bottom: 2vh;
+}
+
+.AdminLayoutBody {
+    flex-grow : 9;
+    height: 100vh;
+    /* background-color: Azure; */
+}
