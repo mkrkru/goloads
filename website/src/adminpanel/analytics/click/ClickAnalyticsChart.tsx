@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from 'react-google-charts';
+import '../../../common/Common.css';
 
 interface AnalyticsChartProps {
     /**
@@ -15,42 +16,42 @@ interface AnalyticsChartProps {
      * [9, 0], - 6 day
      * [3, 2], - 7 day
      */
-    data : number[][]
+    data : number[][],
+    lastWeekColor : string,
+    currentWeekColor : string
 }
 
-export class AnalyticsChart extends React.Component<AnalyticsChartProps> {
+export class ClickAnalyticsChart extends React.Component<AnalyticsChartProps> {
 
     render() {
         return <Chart
-            width = "40vh"
-            height = "20vh"
+            width = "700px"
+            height = "250px"
             chartType = "AreaChart"
-            loader = {<div>Loading click stats...</div>}
+            loader = {<div className="Center">Loading click stats...</div>}
             data = {[
                 ['Day', 'Current', 'Last'],
                 ...this.props.data.map((value, index, _) => [index + 1, value[0], value[1]])
             ]}
             options = {{
+                colors : [
+                    this.props.currentWeekColor,
+                    this.props.lastWeekColor,
+                ],
                 title : 'Click stats',
                 hAxis : { 
                     title : 'Week',
                     titleTextStyle : {
                         color : '#333'
-                    },
-                    viewWindow : {
-                        min : 0
                     }
                 },
                 vAxis : {
                     title : "Clicks",
                     titleTextStyle : {
                         color : '#333'
-                    },
-                    viewWindow : {
-                        min : 0
                     }
                 },
-                chartArea : { width: '80%', height: '80%'}
+                chartArea : { width: '60%', height: '80%'}
             }}
         />
     }
