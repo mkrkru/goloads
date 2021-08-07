@@ -14,7 +14,8 @@
 		"activeTab"
 	],
 	"content_scripts" : [{
-		"css" : ["css/content_style.css"],
+		"css" : ["./css/content_style.css"],
+		"js": ["./scripts/content.js"],
 		"matches" : ["http://*/*", "https://*/*"]
 	}]
 }
