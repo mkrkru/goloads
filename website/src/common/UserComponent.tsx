@@ -9,7 +9,7 @@ interface UserComponentProps {
 export class UserComponent extends React.Component<UserComponentProps> {
 
     render() {
-        return <img 
+        return <img
         className = {"Circle UserHeader " + this.props.className} 
         src={this.props.icon}
         />

@@ -16,42 +16,59 @@ interface AnalyticsChartProps {
      * [9, 0], - 6 day
      * [3, 2], - 7 day
      */
-    data : number[][],
-    lastWeekColor : string,
-    currentWeekColor : string
+    data: number[][],
+    lastWeekColor: string,
+    currentWeekColor: string
 }
+
+const width = 700
+const height = 250
+const format = "px"
 
 export class ClickAnalyticsChart extends React.Component<AnalyticsChartProps> {
 
     render() {
         return <Chart
-            width = "700px"
-            height = "250px"
-            chartType = "AreaChart"
-            loader = {<div className="Center">Loading click stats...</div>}
-            data = {[
+            width={width + format}
+            height={height + format}
+            chartType="AreaChart"
+            loader={
+                <div 
+                className="Center" 
+                style = {{
+                    width : (width - 10) + format,
+                    height : (height - 9) + format,
+                    padding: 4 + format,
+                    border : `1${format} solid black`,
+                    borderTop : "0px solid black"
+                }}
+                >
+                    Loading click stats...
+                </div>
+            }
+            data={[
                 ['Day', 'Current', 'Last'],
                 ...this.props.data.map((value, index, _) => [index + 1, value[0], value[1]])
             ]}
-            options = {{
-                colors : [
+            options={{
+                colors: [
                     this.props.currentWeekColor,
                     this.props.lastWeekColor,
                 ],
-                title : 'Click stats',
-                hAxis : { 
-                    title : 'Week',
-                    titleTextStyle : {
-                        color : '#333'
+                title: 'Click stats',
+                hAxis: {
+                    title: 'Week',
+                    titleTextStyle: {
+                        color: '#333'
                     }
                 },
-                vAxis : {
-                    title : "Clicks",
-                    titleTextStyle : {
-                        color : '#333'
+                vAxis: {
+                    title: "Clicks",
+                    titleTextStyle: {
+                        color: '#333'
                     }
                 },
-                chartArea : { width: '60%', height: '80%'}
+                chartArea: { width: '60%', height: '80%' }
             }}
         />
     }

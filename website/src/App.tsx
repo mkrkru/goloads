@@ -15,7 +15,13 @@ function App() {
         [32, 12],
         [41, 29],
         [32, 23]
-      ]})
+      ]}),
+      {
+        render : () => <div></div>,
+        icon : () => <div></div>,
+        title : "TITLE",
+        path : "/hello"
+      }
     ]}/>
   );
 }

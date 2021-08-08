@@ -1,57 +1,68 @@
 import React from "react";
+import { ShadowCircle } from "../common/ShadowCircle";
 import { UserComponent } from "../common/UserComponent";
 import './Layout.css';
+import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
+import { Title } from "./TitleComponent";
 
 export interface AdminPanelBarComponent {
     render: () => JSX.Element
     icon: () => JSX.Element
+    path: string,
+    title: string
 }
 
 interface AdminPanelLayoutProps {
     barComponents: AdminPanelBarComponent[]
 }
 
-interface AdminPanelLayoutState {
-    current: number
-}
-
-export class AdminPanelLayout extends React.Component<AdminPanelLayoutProps, AdminPanelLayoutState> {
+export class AdminPanelLayout extends React.Component<AdminPanelLayoutProps> {
 
     constructor(props: AdminPanelLayoutProps) {
         super(props)
-        this.state = {
-            current: 0
-        }
     }
 
     render() {
-        return <div className="AdminLayout">
-            <div className="AdminLayoutHeader">
-                <UserComponent 
-                icon = "https://avatars.githubusercontent.com/u/51133999?v=4" 
-                className = "AdminLayoutUserHeader"
-                />
-            </div>
-            <div className="AdminLayoutBody">
-                <div className="AdminLayoutLeftBar">
-                    <div className="AdminLayoutLeftBarMargin"/>
+        return <BrowserRouter>
+            <Redirect exact from="/" to="/analytics"/>
+            <div className="AdminLayout">
+                <div className="AdminLayoutHeader">
                     {
-                        this.props.barComponents.map((component, index, _) => {
-                            return <div className="AdminLayoutButton" onClick={
-                                () => this.setState((__, ___) => { return { current: index } })
-                            }>
-                                {component.icon()}
-                            </div>
-                        })
+                        this.props.barComponents.map((value, _, __) => <Route exact path={value.path}>
+                            <Title title={value.title}/>
+                        </Route>
+                        )
                     }
+                    <UserComponent 
+                    icon = "https://avatars.githubusercontent.com/u/51133999?v=4" 
+                    className = "AdminLayoutUserHeader"
+                    />
                 </div>
-                <div className="AdminLayoutContentBody">
-                    {
-                        this.props.barComponents[this.state.current].render()
-                    }
+                <div className="AdminLayoutBody">
+                    <div className="AdminLayoutLeftBar">
+                        <div className="AdminLayoutLeftBarMargin"/>
+                        {
+                            this.props.barComponents.map((component, _, __) => {
+                                return <Link to={component.path}>
+                                            <div className="AdminLayoutButton">
+                                                {component.icon()}
+                                            </div> 
+                                        </Link>
+                            })
+                        }
+                    </div>
+                    <div className="AdminLayoutContentBody">
+                        {
+                            this.props.barComponents.map((component, _, __) => {
+                                return <Route exact path={component.path}>
+                                    {component.render()}
+                                </Route> 
+                            })
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
+        </BrowserRouter>
     }
 
 }

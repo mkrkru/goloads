@@ -10,3 +10,13 @@
 .Center {
     text-align : center;
 }
+
+.Shadow {
+    z-index: -1;
+    background-color : rgb(128, 128, 128, 128);
+}
+
+.Shadow-text {
+    z-index: -1;
+    color: rgb(128, 128, 128, 128);
+}
