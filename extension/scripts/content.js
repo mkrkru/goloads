@@ -1,15 +1,34 @@
 window.onload = () => {
     let current = window.location.hostname;
-    if (current.includes("://yandex")) {
+    console.log(current);
 
-    } else if (current.includes("://stackoverflow")) {
+    if (current.includes("yandex")) {
+        let doc = document.getElementsByClassName("serp-header")[0];
+        let astyle = "height: 384px; width: 480px;";
 
-    } else if (current.includes("://vk")) {
+        doc.after(`<div class="addableBanner">
+            <a href="https://yandex.ru" target="_blank">
+                <img src="https://im0-tub-ru.yandex.net/i?id=a38fb382660e886fc95b56a9970089ff-l&n=27&h=384&w=480" style="${astyle}">
+            </a>
+        </div>`);
+    } else if (current.includes("stackoverflow")) {
+        let doc = document.getElementsByClassName("clc-cp-link")[0];
+        let astyle = "width: 728px; height: 90px;";
+
+        doc.replaceWith(`<div class="addableBanner">
+            <a href="https://yandex.ru" target="_blank">
+                <img src="https://im0-tub-ru.yandex.net/i?id=a38fb382660e886fc95b56a9970089ff-l&n=27&h=384&w=480" style="${astyle}">
+            </a>
+        </div>`);
+    } else if (current.includes("google")) {
+
+    } else if (current.includes("vk")) {
         let doc = document.getElementById("side_bar");
+
         let astyle = "width: 145px; height: 165px;";
         doc.innerHTML += `<div class="addableBanner">
             <a href="https://yandex.ru" target="_blank">
-                <img src="https://im0-tub-ru.yandex.net/i?id=a38fb382660e886fc95b56a9970089ff-l&n=27&h=384&w=480" style=${astyle}>
+                <img src="https://im0-tub-ru.yandex.net/i?id=a38fb382660e886fc95b56a9970089ff-l&n=27&h=384&w=480" style="${astyle}">
             </a>
         </div>`;
     };
