@@ -17,6 +17,17 @@ window.onload = () => {
     document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
     document.getElementById("popupModalButtonGet").addEventListener("click", getData);
     document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData);
+    document.getElementById("switchFloating").addEventListener("click", switchFloating)
+}
+
+function switchFloating() {
+    if (showFloating) {
+        showFloating = false;
+        document.getElementById("switchFloating").innerHTML = "выкл";
+    } else {
+        showFloating = true;
+        document.getElementById("switchFloating").innerHTML = "вкл";
+    }
 }
 
 function sendData() {
@@ -29,7 +40,7 @@ function sendData() {
 
     if ([newBannerData.image, newBannerData.url, newBannerData.domains].includes("")) return;
 
-    fetch("http://192.168.239.25:8080/add", {
+    fetch(`http://${ip}:8080/add`, {
         method: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -47,7 +58,7 @@ function sendData() {
 }
 
 function getData() {
-    fetch("http://192.168.239.25:8080", {
+    fetch(`http://${ip}:8080`, {
         method: 'GET',
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -63,7 +74,7 @@ function deleteData() {
     let oldid = document.getElementById("oldBannerId").value;
     if (oldid.length !== 20) return;
 
-    fetch("http://192.168.239.25:8080/delete", {
+    fetch(`http://${ip}:8080/delete`, {
         method: 'DELETE',
         headers: {
             'Access-Control-Allow-Origin': '*',

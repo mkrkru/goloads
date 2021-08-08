@@ -1,14 +1,23 @@
-let createDoc = size => {
+globalThis.ip = "192.168.239.25";
+globalThis.showFloating = true;
+
+const createDoc = size => {
     let n = document.createElement("div");
-    n.innerHTML = `<a href="http://192.168.239.14:3000" target="_blank">
+    n.innerHTML = `<a href="http://${ip}:3000" target="_blank">
         <img src="https://cdn.glitch.com/aefffd54-cc9e-4111-9d79-95efe81e4b99%2Fimg.png?v=1628429421554" style="${size}">
     </a>`;
     return n;
 };
 
+// yandex
+// stackoverflow
+// vk
+// youtube
+// github
+
 window.onload = () => {
     let current = window.location;
-    console.log(current);
+    if (current.host.includes("192") || current.host.includes("magazik")) return;
 
     if (current.hostname.includes("yandex")) {
 
@@ -30,19 +39,37 @@ window.onload = () => {
 
     } else if (current.hostname.includes("vk")) {
 
+        // document.getElementsByClassName("ads_ad_box").forEach(x => x.remove());
+
         let newdoc = createDoc("height: 165px; width: 145px;");
         newdoc.className = "addableBannerVk";
-        document.getElementsByClassName("side_bar_nav")[0].before(newdoc);
+        document.getElementsByClassName("side_bar_nav")[0].after(newdoc);
 
-    } else if (current.host.includes("192")) {
-        
-        null
+        document.getElementById("ads_left").remove();
+
+    } else if (current.host.includes("youtube")) {
+
+        if (current.pathname.includes("watch")) {
+            let newdoc = createDoc("height: 94px; width: 374px;");
+            // newdoc.className = "addableBannerYtWatch";
+            document.getElementsByClassName("ytd-item-section-renderer")[0].before(newdoc);
+        } else {
+            let newdoc = createDoc("width: 1504px; height: 120px;");
+            newdoc.className = "addableBannerYt";
+            document.getElementsByClassName("ytd-rich-grid-renderer")[0].before(newdoc);
+        }
+
+    } else if (current.host.includes("github")) {
+
+        let newdoc = createDoc("width: 720px; height: 80px;");
+        document.getElementsByClassName("news")[0].before(newdoc);
 
     } else {
+        if (!showFloating) return;
         let newdoc = createDoc("height: 80px; width: 500px");
         newdoc.className = "addableBannerFloat";
         document.body.appendChild(newdoc);
-    }
+    };
 
     // for (let i = 0; i < images.length; i++) images[i].src = `http://placekitten.com/${images[i].width}/${images[i].height}`;
 }

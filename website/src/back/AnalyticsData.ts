@@ -7,7 +7,7 @@ export interface AnalyticsData {
 }
 
 export function fetchAnalyticsData(id: string, fn : (data? : AnalyticsData) => void) : void {
-    fetch(`http://192.168.239.83:8080/analytics?id=${id}`, {
+    fetch(`http://192.168.214.15:8080/analytics?id=${id}`, {
         method: "GET",
         headers: {
             "Access-Control-Allow-Origin": "*",
