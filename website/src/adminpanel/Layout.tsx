@@ -1,14 +1,13 @@
 import React from "react";
-import { ShadowCircle } from "../common/ShadowCircle";
 import { UserComponent } from "../common/UserComponent";
 import './Layout.css';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 import { Title } from "./TitleComponent";
 
 export interface AdminPanelBarComponent {
-    render: () => JSX.Element
-    icon: () => JSX.Element
-    path: string,
+    render: JSX.Element | React.Component | Element
+    icon: string
+    path: string
     title: string
 }
 
@@ -45,7 +44,7 @@ export class AdminPanelLayout extends React.Component<AdminPanelLayoutProps> {
                             this.props.barComponents.map((component, _, __) => {
                                 return <Link to={component.path}>
                                             <div className="AdminLayoutButton">
-                                                {component.icon()}
+                                                <img width="60px" height="60px" src={component.icon} className="Circle"/>
                                             </div> 
                                         </Link>
                             })
@@ -55,7 +54,7 @@ export class AdminPanelLayout extends React.Component<AdminPanelLayoutProps> {
                         {
                             this.props.barComponents.map((component, _, __) => {
                                 return <Route exact path={component.path}>
-                                    {component.render()}
+                                    {component.render}
                                 </Route> 
                             })
                         }

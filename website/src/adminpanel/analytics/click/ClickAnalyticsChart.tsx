@@ -1,43 +1,50 @@
 import React from 'react';
+import { AnalyticsData, columnById, columnNameById } from '../../../back/AnalyticsData';
 import Chart from 'react-google-charts';
 import '../../../common/Common.css';
 
 interface AnalyticsChartProps {
-    /**
-     * 1 element - current week,
-     * 2 element - last week
-     * 
-     * example : 
-     * [0, 2], - 1 day
-     * [1, 3], - 2 day
-     * [3, 2], - 3 day
-     * [4, 5], - 4 day
-     * [6, 8], - 5 day
-     * [9, 0], - 6 day
-     * [3, 2], - 7 day
-     */
-    data: number[][],
-    lastWeekColor: string,
+    data: AnalyticsData
+    lastWeekColor: string
     currentWeekColor: string
+    column : number
 }
 
-const width = 700
-const height = 250
 const format = "px"
+
+function width() {
+    return (window.innerWidth-120) * 0.35
+}
+
+function height() {
+    return width() * 0.55
+}
 
 export class ClickAnalyticsChart extends React.Component<AnalyticsChartProps> {
 
+    handleResize(_ : any) {
+        this.forceUpdate()
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.handleResize.bind(this))
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize.bind(this))
+    }
+
     render() {
         return <Chart
-            width={width + format}
-            height={height + format}
+            width={width() + format}
+            height={height() + format}
             chartType="AreaChart"
             loader={
                 <div 
                 className="Center" 
                 style = {{
-                    width : (width - 10) + format,
-                    height : (height - 9) + format,
+                    width : (width() - 10) + format,
+                    height : (height() - 9) + format,
                     padding: 4 + format,
                     border : `1${format} solid black`,
                     borderTop : "0px solid black"
@@ -48,27 +55,46 @@ export class ClickAnalyticsChart extends React.Component<AnalyticsChartProps> {
             }
             data={[
                 ['Day', 'Current', 'Last'],
-                ...this.props.data.map((value, index, _) => [index + 1, value[0], value[1]])
+                ...(() => {
+                    var array = []
+                    var arrayLength = this.props.data.clicks.length / 2
+                    for (var i = 0; i < arrayLength; ++i) {        
+                        array.push([
+                            i.toString(), 
+                            columnById(this.props.column, this.props.data)[i], 
+                            columnById(this.props.column, this.props.data)[i + arrayLength]
+                        ])
+                    }
+                    return array
+                })()
             ]}
             options={{
+                backgroundColor : "#1C1C1C",
                 colors: [
                     this.props.currentWeekColor,
                     this.props.lastWeekColor,
                 ],
-                title: 'Click stats',
+                legend : {
+                    position : 'top'
+                },
+                title : columnNameById(this.props.column),
+                titleTextStyle : {
+                    color : "#FFFFFF",
+                    fontSize : 18
+                },
                 hAxis: {
                     title: 'Week',
                     titleTextStyle: {
-                        color: '#333'
+                        color: '#FFFFFF'
                     }
                 },
                 vAxis: {
-                    title: "Clicks",
+                    title: columnNameById(this.props.column),
                     titleTextStyle: {
-                        color: '#333'
+                        color: '#FFFFFF'
                     }
                 },
-                chartArea: { width: '60%', height: '80%' }
+                chartArea: { width: '80%', height: '80%' }
             }}
         />
     }

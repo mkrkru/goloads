@@ -3,22 +3,22 @@ import logo from './logo.svg';
 import './App.css';
 import { AdminPanelLayout } from './adminpanel/Layout';
 import { AnalyticsComponent } from './adminpanel/analytics/AnalyticsComponent';
+import { FetchAnalyticsComponent } from './adminpanel/analytics/FetchAnalyticsComponent';
+
+import AnalyticsIcon from './assets/analytics_icon.png'
 
 function App() {
   return (
     <AdminPanelLayout barComponents={[
-      new AnalyticsComponent({clicksData : [
-        [26, 19],
-        [32, 31],
-        [33, 10],
-        [25, 32],
-        [32, 12],
-        [41, 29],
-        [32, 23]
-      ]}),
       {
-        render : () => <div></div>,
-        icon : () => <div></div>,
+        render : <FetchAnalyticsComponent/>,
+        icon : AnalyticsIcon,
+        title : "Analytics",
+        path : "/analytics"
+      },
+      {
+        render : <div></div>,
+        icon : "",
         title : "TITLE",
         path : "/hello"
       }

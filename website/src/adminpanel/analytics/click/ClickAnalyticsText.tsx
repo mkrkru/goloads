@@ -1,38 +1,35 @@
 import React from 'react';
+import { dataById, FullAnalyticsData } from '../../../back/AnalyticsData';
 
 interface ClickAnalyticsTextProps {
-    data : number[][],
+    data : FullAnalyticsData,
     currentWeekColor : string,
-    lastWeekColor : string
+    lastWeekColor : string,
+    column : number
 }
 
 export class ClickAnalyticsText extends React.Component<ClickAnalyticsTextProps> {
     
     render() {
-        var lastWeek = 0;
-        var currentWeek = 0;
-        this.props.data.forEach((array, _, __) => {
-            currentWeek += array[0]
-            lastWeek += array[1]
-        })
+        var currentColumn = dataById(this.props.column, this.props.data)
         return <div className = "ClickAnalyticsTextBox Center">
             <div style={{
                 color : this.props.currentWeekColor
             }}>
-                {currentWeek}
+                {currentColumn.current}
             </div>
             <div style={{
-                color : currentWeek > lastWeek ? this.props.currentWeekColor : this.props.lastWeekColor 
+                color : currentColumn.current > currentColumn.last ? this.props.currentWeekColor : this.props.lastWeekColor 
             }}>
-                {currentWeek > lastWeek ? ">" : "<"}
+                {currentColumn.current > currentColumn.last ? ">" : "<"}
                 <div className = "ClickAnalyticsAddInformation">
-                    {Math.floor(currentWeek / lastWeek * 100) / 100}
+                    {Math.floor(currentColumn.current / currentColumn.last * 100) / 100}
                 </div>
             </div>
             <div style={{
                 color : this.props.lastWeekColor
             }}>
-                {lastWeek}
+                {currentColumn.last}
             </div>
         </div>
     }
