@@ -15,11 +15,16 @@
 .ClickAnalyticsBox {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .AnalyticsTitle {
     font-size: 300%;
     margin-left: 20px;
     text-decoration: bold;
+}
+
+.ClickAnalyticsColumnBox {
+    display: flex;
+    flex-direction: rown;
 }

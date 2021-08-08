@@ -3,16 +3,13 @@ import { AdminPanelBarComponent } from '../Layout';
 import { ClickAnalytics } from './click/ClickAnalytics';
 import './Analytics.css';
 import AnalyticsIcon from './../../assets/analytics_icon.png';
+import { AnalyticsData, FullAnalyticsData } from '../../back/AnalyticsData';
 
 interface AnalyticsComponentProps {
-    clicksData : number[][]
+    data : FullAnalyticsData
 }
 
-export class AnalyticsComponent extends React.Component<AnalyticsComponentProps> implements AdminPanelBarComponent {
-
-    title = "Analytics"
-    path = "/analytics"
-
+export class AnalyticsComponent extends React.Component<AnalyticsComponentProps>{
 
     icon() {
         return <img className="Circle" width="60px" height="60px" src={AnalyticsIcon}></img>
@@ -21,9 +18,11 @@ export class AnalyticsComponent extends React.Component<AnalyticsComponentProps>
     render() {
         return <div>
             <ClickAnalytics
-            currentWeekColor = "#00FF00" 
-            lastWeekColor = "#FF0000" 
-            data = {this.props.clicksData}
+            clicksCurrentWeekColor = "#00FF00" 
+            clicksLastWeekColor = "#FF0000" 
+            uniqueClicksCurrentWeekColor = "#FFFF00"
+            uniqueClicksLastWeekColor = "#00FFFF"
+            data = {this.props.data}
             />
         </div>
     }
