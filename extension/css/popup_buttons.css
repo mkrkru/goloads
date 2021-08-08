@@ -5,8 +5,7 @@
     text-align: center;
     display: inline-block;
     font-size: 16px;
-    margin-top: 8px;
-    margin-right: 2px;
+    margin: 8px;
     transition-duration: 0.2s;
     border-radius: 4px;
 }
@@ -30,4 +29,12 @@
 
 .popupButtonGreen:hover {
     background-color: #44aa00;
+}
+
+.popupButtonBlue {
+    border: 2px solid #000f97
+}
+
+.popupButtonBlue:hover {
+    background-color: #000f97;
 }
