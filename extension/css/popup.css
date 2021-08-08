@@ -1,15 +1,17 @@
 @import url("/css/popup_styles/popup_buttons.css");
 @import url("/css/popup_styles/popup_misc.css");
 
-/* .actionBlock {
-    display: flex;
-    flex-direction: row;
-} */
-
 .inputField {
     border-radius: 4px;
     background-color: rgb(206, 255, 132);
     border: none;
     padding: 6px;
     margin-bottom: 4px;
+}
+
+.logs {
+    margin: 4px 10px auto 10px;
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid greenyellow;
+    padding: 2px 4px 2px 4px;
 }

@@ -1,6 +1,7 @@
 function log(what) {
     let rr = document.createElement("p");
     rr.innerHTML = what;
+    rr.className = "logs";
     document.body.appendChild(rr);
     setTimeout(() => { rr.remove() }, 5000);
 };

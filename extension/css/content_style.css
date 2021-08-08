@@ -1,3 +1,22 @@
-.addableBanner {
-    margin: 50px;
+.addableBannerYandexSearch {
+    margin: 20px auto 0px 115px; /* верх право низ лево */
+}
+
+.addableBannerYandex {
+    margin: 20px auto 0px 20%;
+}
+
+.addableBannerStack {
+    margin: 12px;
+}
+
+.addableBannerVk {
+    margin: 4px auto 10px auto;
+}
+
+.addableBannerFloat {
+    position: fixed;
+    right: 2%;
+    bottom: 5%;
+    z-index: 99999;
 }
