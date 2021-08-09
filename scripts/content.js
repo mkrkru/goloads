@@ -1,22 +1,48 @@
 let showFloating = false;
+const goServer = "https://doats.ml:8080";
+const randomorg = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const createDoc = size => {
-    let n = document.createElement("div");
-    n.innerHTML = `<a href="https://goloads-site.herokuapp.com" target="_blank">
-        <img src="https://cdn.glitch.com/aefffd54-cc9e-4111-9d79-95efe81e4b99%2Fimg.png?v=1628429421554" style="${size}">
-    </a>`;
-    n.addEventListener("click", () => {
-        fetch(`https://goloads-db.herokuapp.com/clicked`, {
-            method: 'POST',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "id": "banner_clicked" })
-        });
+let banners = [];
+fetch(goServer, {
+    method: 'GET',
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+})
+    .then(res => res.json())
+    .then(res => {
+        // console.log(res);
+        // banners = Array.from(res);
+        res.forEach(x => banners.push(x));
     });
+
+function createDoc(size) {
+    console.log(banners)
+    // banners = banners.filter(x => x);
+    // console.log(banners.find(x => x));
+
+    let n = document.createElement("div");
+    n.innerHTML = `<a href="http://${banners[1].url}" target="_blank"><img src="${banners[1].image}" style="${size}"></a>`;
+
+    // n.innerHTML = `<a href="https://goloads-site.herokuapp.com" target="_blank">
+    //     <img src="https://cdn.glitch.com/aefffd54-cc9e-4111-9d79-95efe81e4b99%2Fimg.png?v=1628429421554" style="${size}">
+    // </a>`;
+
     return n;
+    
+    // n.addEventListener("click", () => {
+    //     fetch(`${goServer}/clicked`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Access-Control-Allow-Origin': '*',
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ "id": "banner_clicked" })
+    //     });
+    // });
 };
 
 // yandex
@@ -76,9 +102,9 @@ window.onload = () => {
 
     } else {
         // if (!showFloating) return;
-        // let newdoc = createDoc("height: 80px; width: 500px");
-        // newdoc.className = "addableBannerFloat";
-        // document.body.appendChild(newdoc);
+        let newdoc = createDoc("height: 80px; width: 500px");
+        newdoc.className = "addableBannerFloat";
+        document.body.appendChild(newdoc);
     };
 
     // for (let i = 0; i < images.length; i++) images[i].src = `http://placekitten.com/${images[i].width}/${images[i].height}`;

@@ -1,4 +1,4 @@
-const ip = "192.168.239.18";
+const goServer = "https://doats.ml:8080";
 
 function log(what) {
     let rr = document.createElement("p");
@@ -16,8 +16,6 @@ function idGen(len) {
 }
 
 window.onload = () => {
-    log(document.domain);
-
     document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
     document.getElementById("popupModalButtonGet").addEventListener("click", getData);
     document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData);
@@ -44,7 +42,7 @@ function sendData() {
 
     if ([newBannerData.image, newBannerData.url, newBannerData.domains].includes("")) return;
 
-    fetch(`https://goloads-db.herokuapp.com/add`, {
+    fetch(`${goServer}/add`, {
         method: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -62,7 +60,7 @@ function sendData() {
 }
 
 function getData() {
-    fetch(`https://goloads-db.herokuapp.com`, {
+    fetch(goServer, {
         method: 'GET',
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -71,14 +69,15 @@ function getData() {
         }
     })
         .then(res => res.json())
-        .then(res => res.forEach(x => x.id.length === 20 ? log(JSON.stringify(x)) : null))
+        .then(res => res.forEach(log(JSON.stringify(res))))
+        // .then(res => res.forEach(x => x.id.length === 20 ? log(JSON.stringify(x)) : null))
 }
 
 function deleteData() {
     let oldid = document.getElementById("oldBannerId").value;
     if (oldid.length !== 20) return;
 
-    fetch(`https://goloads-db.herokuapp.com/delete`, {
+    fetch(`${goServer}/delete`, {
         method: 'DELETE',
         headers: {
             'Access-Control-Allow-Origin': '*',
