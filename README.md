@@ -3,9 +3,6 @@ GoloAds представляет из себя плагин, который бу
 
 ### [Google Docs](https://docs.google.com/document/d/1-RmQtZMIU262lwO9hwVKY08qW9FarShcWVkiApywG3I/edit?usp=sharing)
 
-### website
-> Административная панель
-
 ### backend
 > Backend на Go с синхронизацией БД
 
