@@ -44,7 +44,7 @@ function sendData() {
 
     if ([newBannerData.image, newBannerData.url, newBannerData.domains].includes("")) return;
 
-    fetch(`http://${ip}:8080/add`, {
+    fetch(`https://goloads-db.herokuapp.com/add`, {
         method: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -62,7 +62,7 @@ function sendData() {
 }
 
 function getData() {
-    fetch(`http://${ip}:8080`, {
+    fetch(`https://goloads-db.herokuapp.com`, {
         method: 'GET',
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -78,7 +78,7 @@ function deleteData() {
     let oldid = document.getElementById("oldBannerId").value;
     if (oldid.length !== 20) return;
 
-    fetch(`http://${ip}:8080/delete`, {
+    fetch(`https://goloads-db.herokuapp.com/delete`, {
         method: 'DELETE',
         headers: {
             'Access-Control-Allow-Origin': '*',
