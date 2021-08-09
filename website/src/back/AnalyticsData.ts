@@ -100,5 +100,32 @@ function promiseAnalyticsData(id : string) : Promise<AnalyticsData> {
             return null;
         }
     })
-    .then(fn)
+}
+
+export function columnById(id : number, data : AnalyticsData) : number[] {
+    switch(id) {
+        case 0:
+            return data.clicks
+        case 1:
+            return data.uniqueClicks
+        case 2:
+            return data.views
+        case 3:
+            return data.uniqueViews
+    }
+    throw new Error("Column id is not right")
+}
+
+export function columnNameById(id : number) : string {
+    switch(id) {
+        case 0:
+            return "Clicks"
+        case 1:
+            return "Unique clicks"
+        case 2:
+            return "Views"
+        case 3:
+            return "Unique views"
+    }
+    throw new Error("Column id is not right")
 }
