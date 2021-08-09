@@ -30,3 +30,11 @@ func RandomString(length int) string {
 
 	return sb.String()
 }
+
+func RandomArray(length int) []int {
+	array := make([]int, length)
+	for i := 0; i < length; i++{
+		array[i] = rand.Intn(100)
+	}
+	return array
+}

@@ -10,11 +10,12 @@ type UserStorage struct {
 	UserMap map[string]User
 }
 
-type Advertisment struct {
-	ID        string   `json:"id"`
-	ImageURL  string   `json:"image"`
-	DomainURL string   `json:"url"`
-	Domains   []string `json:"domains"`
+type Banner struct {
+	ID          string   `json:"id"`
+	Image       string   `json:"image"`
+	DomainURL   string   `json:"url"`
+	Domains     []string `json:"domains"`
+	ImageBase64 bool     `json:"image-base64"`
 }
 
 type Analytics struct {
@@ -25,36 +26,34 @@ type Analytics struct {
 	UniqueViews  []int  `json:"unique_views"`
 }
 
-type AdvertismentStorage struct {
-	AdsMap map[string]Advertisment
+type BannerStorage struct {
+	BannerMap map[string]Banner
 }
 
 type AnalyticsStorage struct {
 	AnalyticsMap map[string]Analytics
 }
 
-func (a *AdvertismentStorage) addAdvertisement(ad Advertisment) {
-	a.AdsMap[ad.ID] = ad
+func (a *BannerStorage) addAdvertisement(ad Banner) {
+	a.BannerMap[ad.ID] = ad
 }
 
-func (a *AdvertismentStorage) getAdvertisements() []Advertisment {
-	var ads []Advertisment
-	for _, ad := range a.AdsMap {
+func (a *BannerStorage) getAdvertisements() []Banner {
+	var ads []Banner
+	for _, ad := range a.BannerMap {
 		ads = append(ads, ad)
 	}
 	return ads
 }
 
-func (a *AdvertismentStorage) deleteAdvertisement(id string) {
-	delete(a.AdsMap, id)
+func (a *BannerStorage) deleteAdvertisement(id string) {
+	delete(a.BannerMap, id)
 }
 
-func (a AnalyticsStorage) getAnalytics(id string) Analytics{
+func (a AnalyticsStorage) getAnalytics(id string) Analytics {
 	return a.AnalyticsMap[id]
 }
 
-func (s AdvertismentStorage) sendBanner(id string) Advertisment {
-	return s.AdsMap[id]
+func (s BannerStorage) sendBanner(id string) Banner {
+	return s.BannerMap[id]
 }
-
-
