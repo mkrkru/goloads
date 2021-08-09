@@ -1,11 +1,22 @@
-globalThis.ip = "192.168.239.25";
-globalThis.showFloating = true;
+const ip = "192.168.239.18";
+let showFloating = false;
 
 const createDoc = size => {
     let n = document.createElement("div");
     n.innerHTML = `<a href="http://${ip}:3000" target="_blank">
         <img src="https://cdn.glitch.com/aefffd54-cc9e-4111-9d79-95efe81e4b99%2Fimg.png?v=1628429421554" style="${size}">
     </a>`;
+    n.addEventListener("click", () => {
+        fetch(`http://${ip}:8080/clicked`, {
+            method: 'POST',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "id": "banner_clicked" })
+        });
+    });
     return n;
 };
 
@@ -65,10 +76,10 @@ window.onload = () => {
         document.getElementsByClassName("news")[0].before(newdoc);
 
     } else {
-        if (!showFloating) return;
-        let newdoc = createDoc("height: 80px; width: 500px");
-        newdoc.className = "addableBannerFloat";
-        document.body.appendChild(newdoc);
+        // if (!showFloating) return;
+        // let newdoc = createDoc("height: 80px; width: 500px");
+        // newdoc.className = "addableBannerFloat";
+        // document.body.appendChild(newdoc);
     };
 
     // for (let i = 0; i < images.length; i++) images[i].src = `http://placekitten.com/${images[i].width}/${images[i].height}`;

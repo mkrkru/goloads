@@ -1,3 +1,5 @@
+const ip = "192.168.239.18";
+
 function log(what) {
     let rr = document.createElement("p");
     rr.innerHTML = what;
@@ -14,10 +16,12 @@ function idGen(len) {
 }
 
 window.onload = () => {
+    log(document.domain);
+
     document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
     document.getElementById("popupModalButtonGet").addEventListener("click", getData);
     document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData);
-    document.getElementById("switchFloating").addEventListener("click", switchFloating)
+    document.getElementById("switchFloating").addEventListener("click", switchFloating);
 }
 
 function switchFloating() {
