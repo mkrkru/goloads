@@ -8,21 +8,21 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const (
+/*const (
 	host     = "localhost"
 	port     = 5433
 	user     = "postgres"
 	password = "postgres"
 	dbname   = "postgres"
-)
+)*/
 
-/*const (
+const (
 	host     = "ec2-52-17-1-206.eu-west-1.compute.amazonaws.com"
 	port     = 5432
 	user     = "hjzokxbtzadjhv"
 	password = "c20b05c35a896d812208b2e45c22a51ef896d0270af876d67f023cf2ee776424"
 	dbname   = "d53l1p7nfaa2qf"
-)*/
+)
 
 func InnitializeDB() *sql.DB {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
@@ -56,7 +56,7 @@ func InnitializeDB() *sql.DB {
 
 func (a *BannerStorage) putAdvertisementIntoDB(id string) {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable	",
+		"password=%s dbname=%s",
 		host, port, user, password, dbname)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
@@ -86,7 +86,7 @@ func (a *BannerStorage) putAdvertisementIntoDB(id string) {
 
 func (a *BannerStorage) getAdvertisementsFromDB(id string) Banner {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable	",
+		"password=%s dbname=%s",
 		host, port, user, password, dbname)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
