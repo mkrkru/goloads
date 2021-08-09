@@ -1,79 +1,86 @@
+const ip = "192.168.239.18";
+let showFloating = false;
+
+const createDoc = size => {
+    let n = document.createElement("div");
+    n.innerHTML = `<a href="https://goloads-site.herokuapp.com" target="_blank">
+        <img src="https://cdn.glitch.com/aefffd54-cc9e-4111-9d79-95efe81e4b99%2Fimg.png?v=1628429421554" style="${size}">
+    </a>`;
+    n.addEventListener("click", () => {
+        fetch(`http://${ip}:8080/clicked`, {
+            method: 'POST',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "id": "banner_clicked" })
+        });
+    });
+    return n;
+};
+
+// yandex
+// stackoverflow
+// vk
+// youtube
+// github
+
 window.onload = () => {
-    let current = window.location.hostname;
-    console.log(current);
+    let current = window.location;
+    if (current.host.includes("192") || current.host.includes("magazik")) return;
 
-    if (current.includes("yandex")) {
-        let doc = document.getElementsByClassName("serp-header")[0];
-        let astyle = "height: 384px; width: 480px;";
+    if (current.hostname.includes("yandex")) {
 
-        doc.after(`<div class="addableBanner">
-            <a href="https://yandex.ru" target="_blank">
-                <img src="https://im0-tub-ru.yandex.net/i?id=a38fb382660e886fc95b56a9970089ff-l&n=27&h=384&w=480" style="${astyle}">
-            </a>
-        </div>`);
-    } else if (current.includes("stackoverflow")) {
-        let doc = document.getElementsByClassName("clc-cp-link")[0];
-        let astyle = "width: 728px; height: 90px;";
+        if (current.pathname.includes("search")) {
+            let newdoc = createDoc("height: 80px; width: 500px;");
+            newdoc.className = "addableBannerYandexSearch";
+            document.getElementsByClassName("main__center")[0].before(newdoc);
+        } else {
+            let newdoc = createDoc("height: 110px; width: 900px;");
+            newdoc.className = "addableBannerYandex";
+            document.getElementsByClassName("container__search")[0].after(newdoc);
+        }
 
-        doc.replaceWith(`<div class="addableBanner">
-            <a href="https://yandex.ru" target="_blank">
-                <img src="https://im0-tub-ru.yandex.net/i?id=a38fb382660e886fc95b56a9970089ff-l&n=27&h=384&w=480" style="${astyle}">
-            </a>
-        </div>`);
-    } else if (current.includes("google")) {
+    } else if (current.hostname.includes("stackoverflow")) {
 
-    } else if (current.includes("vk")) {
-        let doc = document.getElementById("side_bar");
+        let newdoc = createDoc("height: 80px; width: 700px;");
+        newdoc.className = "addableBannerStack";
+        document.getElementsByClassName("js-report-ad-button-container")[0].after(newdoc);
 
-        let astyle = "width: 145px; height: 165px;";
-        doc.innerHTML += `<div class="addableBanner">
-            <a href="https://yandex.ru" target="_blank">
-                <img src="https://im0-tub-ru.yandex.net/i?id=a38fb382660e886fc95b56a9970089ff-l&n=27&h=384&w=480" style="${astyle}">
-            </a>
-        </div>`;
+    } else if (current.hostname.includes("vk")) {
+
+        // document.getElementsByClassName("ads_ad_box").forEach(x => x.remove());
+
+        let newdoc = createDoc("height: 165px; width: 145px;");
+        newdoc.className = "addableBannerVk";
+        document.getElementsByClassName("side_bar_nav")[0].after(newdoc);
+
+        document.getElementById("ads_left").remove();
+
+    } else if (current.host.includes("youtube")) {
+
+        if (current.pathname.includes("watch")) {
+            let newdoc = createDoc("height: 94px; width: 374px;");
+            // newdoc.className = "addableBannerYtWatch";
+            document.getElementsByClassName("ytd-item-section-renderer")[0].before(newdoc);
+        } else {
+            let newdoc = createDoc("width: 1504px; height: 120px;");
+            newdoc.className = "addableBannerYt";
+            document.getElementsByClassName("ytd-rich-grid-renderer")[0].before(newdoc);
+        }
+
+    } else if (current.host.includes("github")) {
+
+        let newdoc = createDoc("width: 720px; height: 80px;");
+        document.getElementsByClassName("news")[0].before(newdoc);
+
+    } else {
+        // if (!showFloating) return;
+        // let newdoc = createDoc("height: 80px; width: 500px");
+        // newdoc.className = "addableBannerFloat";
+        // document.body.appendChild(newdoc);
     };
 
-    // fetch("http://192.168.239.83:8080", {
-    //     method: 'GET',
-    //     headers: {
-    //         'Access-Control-Allow-Origin': '*',
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     }
-    // })
-    //     .then(res => res.json())
-    //     .then(res => {
-    //         let nc1 = document.createElement("a");
-    //         nc1.href = res.url;
-    //         document.body.appendChild(nc1);
-
-    //         let nc2 = document.createElement("img");
-    //         nc2.src = res.image;
-    //         nc1.appendChild(nc2);
-    //     });
-
-    // let mdivs = document.getElementsByClassName('ads_ad_photo');
-
-    // let nc1 = document.createElement("a");
-    // nc1.href = "https://ya.ru";
-    // nc1.innerHTML = `<img src="https://im0-tub-ru.yandex.net/i?id=a38fb382660e886fc95b56a9970089ff-l&n=27&h=384&w=480">`; // document.createElement("img").src = res.image;
-    // nc1.style.cssText = 'height: 384px; width: 480px';
-    // document.body.appendChild(nc);
-    // for (let i = 0; i < mdivs.length; i++) mdivs[i].replaceWith(nc);
-
-    // let nc2 = document.createElement("img");
-    // nc2.src = res.image;
-    // nc1.appendChild(nc2);
-
-    // var div = document.createElement('div');
-    // div.className = 'tooltip';
-    // div.id = 'op';
-    // div.style.cssText = 'position: absolute; z-index: 999; height: 16px; width: 16px; top:70px';
-    // div.innerHTML = '<span>Test</span>';
-
-    // document.body.appendChild(div);
-
-    // let images = document.getElementsByClassName('ads_ad_box_border');
-    // for (let i = 0; i < images.length; i++) images[i]
     // for (let i = 0; i < images.length; i++) images[i].src = `http://placekitten.com/${images[i].width}/${images[i].height}`;
 }
