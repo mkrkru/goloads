@@ -3,7 +3,7 @@ let showFloating = false;
 
 const createDoc = size => {
     let n = document.createElement("div");
-    n.innerHTML = `<a href="http://${ip}:3000" target="_blank">
+    n.innerHTML = `<a href="https://goloads-site.herokuapp.com" target="_blank">
         <img src="https://cdn.glitch.com/aefffd54-cc9e-4111-9d79-95efe81e4b99%2Fimg.png?v=1628429421554" style="${size}">
     </a>`;
     n.addEventListener("click", () => {
