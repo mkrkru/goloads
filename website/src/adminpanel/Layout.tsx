@@ -40,15 +40,15 @@ export class AdminPanelLayout extends React.Component<AdminPanelLayoutProps> {
                 <div className="AdminLayoutBody">
                     <div className="AdminLayoutLeftBar">
                         <div className="AdminLayoutLeftBarMargin"/>
-                        {
-                            this.props.barComponents.map((component, _, __) => {
-                                return <Link to={component.path}>
-                                            <div className="AdminLayoutButton">
-                                                <img width="60px" height="60px" src={component.icon} className="Circle"/>
-                                            </div> 
-                                        </Link>
-                            })
-                        }
+                            {
+                                this.props.barComponents.map((component, _, __) => {
+                                    return <Link to={component.path}>
+                                                <div className="AdminLayoutButton">
+                                                    <img src={component.icon} className="Circle AdminLayoutButtomImage"/>
+                                                </div> 
+                                            </Link>
+                                })
+                            }
                     </div>
                     <div className="AdminLayoutContentBody">
                         {

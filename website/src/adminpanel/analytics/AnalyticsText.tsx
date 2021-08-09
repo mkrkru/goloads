@@ -1,14 +1,14 @@
 import React from 'react';
-import { dataById, FullAnalyticsData } from '../../../back/AnalyticsData';
+import { dataById, FullAnalyticsData } from '../../back/AnalyticsData';
 
-interface ClickAnalyticsTextProps {
+interface AnalyticsTextProps {
     data : FullAnalyticsData,
     currentWeekColor : string,
     lastWeekColor : string,
     column : number
 }
 
-export class ClickAnalyticsText extends React.Component<ClickAnalyticsTextProps> {
+export class AnalyticsText extends React.Component<AnalyticsTextProps> {
     
     render() {
         var currentColumn = dataById(this.props.column, this.props.data)

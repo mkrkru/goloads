@@ -1,15 +1,18 @@
 import React from 'react'
-import { FullAnalyticsData } from '../../../back/AnalyticsData';
+import { dataById, FullAnalyticsData } from '../../back/AnalyticsData';
 
-interface ClickAnalyticsComparisonProps {
+interface AnalyticsComparisonProps {
     data : FullAnalyticsData
+    columnStart : number
 }
 
-export class ClickAnalyticsComparison extends React.Component<ClickAnalyticsComparisonProps> {
+export class AnalyticsComparison extends React.Component<AnalyticsComparisonProps> {
 
     render() {
-        var currentComparison = this.props.data.currentWeekClicks / this.props.data.currentWeekUniqueClicks
-        var lastComparison = this.props.data.lastWeekClicks / this.props.data.lastWeekUniqueClicks
+        var just = dataById(this.props.columnStart, this.props.data)
+        var unique = dataById(this.props.columnStart + 1, this.props.data)
+        var currentComparison = just.current / unique.current
+        var lastComparison = just.last / unique.last
         return <div className = "ClickAnalyticsTextBox Center">
             <div className = "ClickAnalyticsAddInformation">
                 {Math.floor(currentComparison * 100) / 100}    

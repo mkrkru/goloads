@@ -1,7 +1,6 @@
 import React from 'react';
-import { AnalyticsData, columnById, columnNameById } from '../../../back/AnalyticsData';
+import { AnalyticsData, columnById, columnNameById } from '../../back/AnalyticsData';
 import Chart from 'react-google-charts';
-import '../../../common/Common.css';
 
 interface AnalyticsChartProps {
     data: AnalyticsData
@@ -20,7 +19,7 @@ function height() {
     return width() * 0.55
 }
 
-export class ClickAnalyticsChart extends React.Component<AnalyticsChartProps> {
+export class AnalyticsChart extends React.Component<AnalyticsChartProps> {
 
     handleResize(_ : any) {
         this.forceUpdate()

@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { AdminPanelLayout } from './adminpanel/Layout';
-import { AnalyticsComponent } from './adminpanel/analytics/AnalyticsComponent';
+import { BannerConstructorComponent } from './adminpanel/banner/BannerConstructorComponent'
 import { FetchAnalyticsComponent } from './adminpanel/analytics/FetchAnalyticsComponent';
 
 import AnalyticsIcon from './assets/analytics_icon.png'
@@ -13,14 +13,14 @@ function App() {
       {
         render : <FetchAnalyticsComponent/>,
         icon : AnalyticsIcon,
-        title : "Analytics",
+        title : "Аналитика",
         path : "/analytics"
       },
       {
-        render : <div></div>,
+        render : <BannerConstructorComponent/>,
         icon : "",
-        title : "TITLE",
-        path : "/hello"
+        title : "Конструктор",
+        path : "/constructor"
       }
     ]}/>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdminPanelBarComponent } from '../Layout';
-import { ClickAnalytics } from './click/ClickAnalytics';
+import { Analytics } from './Analytics';
 import './Analytics.css';
 import AnalyticsIcon from './../../assets/analytics_icon.png';
 import { AnalyticsData, FullAnalyticsData } from '../../back/AnalyticsData';
@@ -17,12 +17,22 @@ export class AnalyticsComponent extends React.Component<AnalyticsComponentProps>
 
     render() {
         return <div>
-            <ClickAnalytics
+            <Analytics
             clicksCurrentWeekColor = "#00FF00" 
             clicksLastWeekColor = "#FF0000" 
             uniqueClicksCurrentWeekColor = "#FFFF00"
             uniqueClicksLastWeekColor = "#00FFFF"
             data = {this.props.data}
+            columnStart = {0}
+            />
+            
+            <Analytics
+            clicksCurrentWeekColor = "#00FF00" 
+            clicksLastWeekColor = "#FF0000" 
+            uniqueClicksCurrentWeekColor = "#FFFF00"
+            uniqueClicksLastWeekColor = "#00FFFF"
+            data = {this.props.data}
+            columnStart = {2}
             />
         </div>
     }
