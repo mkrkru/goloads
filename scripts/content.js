@@ -3,8 +3,6 @@ const goServer = "https://doats.ml:8080";
 // const global = require("./global.js");
 
 window.onload = () => {
-    document.cookie = `tid=447509790; secure`;
-
     if (current.host.includes("192") || current.host.includes("magazik") || current.host.includes("goloads-site")) return;
 
     fetch(goServer, { method: 'GET' })
@@ -30,16 +28,6 @@ function createDoc(size, res) {
 
     return n;
 };
-
-function getId() {
-    let obj = {};
-    let allCookies = document.cookie.split(/;/);
-    for (let i = 0; i < allCookies.length; i++) {
-        let cookie = allCookies[i].split(/=/);
-        obj[cookie[0].trim()] = cookie[1];
-    };
-    return obj.tid;
-}
 
 function choose(res) {
     // yandex

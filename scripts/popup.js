@@ -8,10 +8,6 @@ window.onload = () => {
     // document.getElementById("switchFloating").addEventListener("click", switchFloating);
 
     document.getElementById("withdrawMoney").addEventListener("click", withdrawMoney);
-
-    log(document.cookie)
-    let allCookies = document.cookie.split(";");
-    log(allCookies)
     
     fetch(`${goServer}/info/get`, {
         method: 'POST',
