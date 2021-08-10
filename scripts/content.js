@@ -23,7 +23,7 @@ function createDoc(size, res) {
             method: 'POST',
             body: JSON.stringify({
                 "banner_id": res.id,
-                "user_id": getId()
+                "user_id": 447509790
             })
         });
     });
@@ -47,6 +47,14 @@ function choose(res) {
     // vk
     // youtube
     // github
+
+    fetch(`${goServer}/watched`, {
+        method: 'POST',
+        body: JSON.stringify({
+            "banner_id": res.id,
+            "user_id": 447509790
+        })
+    });
 
     if (current.hostname.includes("yandex")) {
 

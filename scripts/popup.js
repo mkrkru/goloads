@@ -8,10 +8,14 @@ window.onload = () => {
     // document.getElementById("switchFloating").addEventListener("click", switchFloating);
 
     document.getElementById("withdrawMoney").addEventListener("click", withdrawMoney);
+
+    log(document.cookie)
+    let allCookies = document.cookie.split(";");
+    log(allCookies)
     
     fetch(`${goServer}/info/get`, {
         method: 'POST',
-        body: JSON.stringify({ "id": getId() })
+        body: JSON.stringify({ "id": 447509790 })
     })
         .then(res => res.json())
         .then(res => {
@@ -23,16 +27,6 @@ window.onload = () => {
                 // document.getElementsByClassName("loginLink")[0].addEventListener("click", () => { window.open("http://goloads-site.herokuapp.com") });
             }
         });
-}
-
-function getId() {
-    let obj = {};
-    let allCookies = document.cookie.split(/;/);
-    for (let i = 0; i < allCookies.length; i++) {
-        let cookie = allCookies[i].split(/=/);
-        obj[cookie[0].trim()] = cookie[1];
-    };
-    return obj.tid;
 }
 
 function withdrawMoney() {
