@@ -1,4 +1,51 @@
 const goServer = "https://doats.ml:8080";
+// const global = require("./global.js");
+
+window.onload = () => {
+    document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
+    document.getElementById("popupModalButtonGet").addEventListener("click", getData);
+    document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData);
+    // document.getElementById("switchFloating").addEventListener("click", switchFloating);
+
+    document.getElementById("withdrawMoney").addEventListener("click", withdrawMoney);
+    
+    fetch(`${goServer}/info/get`, {
+        method: 'POST',
+        body: JSON.stringify({ "id": getId() })
+    })
+        .then(res => res.json())
+        .then(res => {
+            if (res.money) {
+                // document.getElementById("nickname").innerHTML = res.nickname;
+                document.getElementById("money").innerHTML = `${res.money} GT`;
+            } else {
+                // document.getElementById("nickname").innerHTML = `<p class="loginLink">Войти</p>`;
+                // document.getElementsByClassName("loginLink")[0].addEventListener("click", () => { window.open("http://goloads-site.herokuapp.com") });
+            }
+        });
+}
+
+function getId() {
+    let obj = {};
+    let allCookies = document.cookie.split(/;/);
+    for (let i = 0; i < allCookies.length; i++) {
+        let cookie = allCookies[i].split(/=/);
+        obj[cookie[0].trim()] = cookie[1];
+    };
+    return obj.tid;
+}
+
+function withdrawMoney() {
+    fetch(`${goServer}/info/withdraw`, {
+        method: 'POST',
+        body: JSON.stringify({
+            "nickname": document.getElementById("nickname").innerHTML,
+            "money": parseInt(document.getElementById("money").innerHTML)
+        })
+    })
+        .then(res => res.json())
+        .then(res => log(JSON.stringify(res)));
+}
 
 function log(what) {
     let rr = document.createElement("p");
@@ -6,7 +53,7 @@ function log(what) {
     rr.className = "logs";
     document.body.appendChild(rr);
     setTimeout(() => { rr.remove() }, 5000);
-};
+}
 
 function idGen(len) {
     let text = "";
@@ -15,21 +62,20 @@ function idGen(len) {
     return text;
 }
 
-window.onload = () => {
-    document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
-    document.getElementById("popupModalButtonGet").addEventListener("click", getData);
-    document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData);
-    document.getElementById("switchFloating").addEventListener("click", switchFloating);
-}
-
 function switchFloating() {
-    if (showFloating) {
-        showFloating = false;
+    if (global.showFloating) {
+        global.showFloating = false;
         document.getElementById("switchFloating").innerHTML = "выкл";
     } else {
-        showFloating = true;
+        global.showFloating = true;
         document.getElementById("switchFloating").innerHTML = "вкл";
     }
+}
+
+function getData() {
+    fetch(goServer, { method: 'GET' })
+        .then(res => res.json())
+        .then(res => log(JSON.stringify(res)))
 }
 
 function sendData() {
@@ -44,11 +90,6 @@ function sendData() {
 
     fetch(`${goServer}/add`, {
         method: 'POST',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         body: JSON.stringify(newBannerData)
     })
         .then(res => res.json())
@@ -59,31 +100,12 @@ function sendData() {
     document.getElementById("newBannerDomains").value = "";
 }
 
-function getData() {
-    fetch(goServer, {
-        method: 'GET',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(res => res.json())
-        .then(res => res.forEach(log(JSON.stringify(res))))
-        // .then(res => res.forEach(x => x.id.length === 20 ? log(JSON.stringify(x)) : null))
-}
-
 function deleteData() {
     let oldid = document.getElementById("oldBannerId").value;
     if (oldid.length !== 20) return;
 
     fetch(`${goServer}/delete`, {
         method: 'DELETE',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         body: JSON.stringify({ "id": oldid })
     })
         .then(res => res.json())

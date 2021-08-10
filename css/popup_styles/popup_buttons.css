@@ -38,3 +38,12 @@
 .popupButtonBlue:hover {
     background-color: #000f97;
 }
+
+.loginLink {
+    color: #000f97;
+}
+
+.loginLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
