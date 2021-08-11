@@ -83,9 +83,9 @@ function choose(res) {
 
     } else {
         // if (!global.showFloating) return;
-        // let newdoc = createDoc("height: 80px; width: 500px", res);
-        // newdoc.className = "addableBannerFloat";
-        // document.body.appendChild(newdoc);
+        let newdoc = createDoc("height: 80px; width: 500px", res);
+        newdoc.className = "addableBannerFloat";
+        document.body.appendChild(newdoc);
     };
 
     fetch(`${goServer}/watched`, {

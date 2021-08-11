@@ -11,8 +11,13 @@
 		"default_popup": "./popup.html"
 	},
 	"permissions": [
-		"activeTab"
+		"activeTab",
+		"identity"
 	],
+	"oauth2": {
+		"client_id": "570826800619-ta2fiot279mk015ab6kk0dg2n24hkvb0.apps.googleusercontent.com",
+        "scopes": ["profile"]
+	},
 	"content_scripts" : [{
 		"css" : ["./css/content_style.css"],
 		"js": ["./scripts/content.js"],

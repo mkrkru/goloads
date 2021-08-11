@@ -2,6 +2,24 @@ const goServer = "https://doats.ml:8080";
 const tguser = 447509790;
 
 window.onload = () => {
+    fetch(`${goServer}/info/get`, {
+        method: 'POST',
+        body: JSON.stringify({ "id": tguser })
+    })
+        .then(res => res.json())
+        .then(res => {
+            document.getElementById("header").innerHTML = `<h1 class="logo"><img class="logo-icon" src="images/icon.ico">${res.username}</h1>`;
+            document.getElementById("infodiv").innerHTML = `<center><button id="withdrawMoney" class="popupButton popupButton${res.money > 1 ? "Green" : "Red"}">${res.money} GT</button></center>`;
+            if (res.money > 1) document.getElementById("withdrawMoney").addEventListener("click", () => {
+                fetch(`${goServer}/info/withdraw`, {
+                    method: 'POST',
+                    body: JSON.stringify({ "id": tguser })
+                })
+                    .then(res => res.json())
+                    .then(res => res.state === "success" ? log("OK") : log("ERROR"));
+            });
+        });
+
     // if (!cookie.get("tg_user") && !current.host.includes("goloads-site")) window.open("https://goloads-site.herokuapp.com");
     // log(cookie.get("tg_user"));
     // log(JSON.stringify(window));
@@ -10,32 +28,6 @@ window.onload = () => {
     document.getElementById("popupModalButtonGet").addEventListener("click", getData);
     document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData); */
     // document.getElementById("switchFloating").addEventListener("click", switchFloating);
-
-    document.getElementById("withdrawMoney").addEventListener("click", withdrawMoney);
-
-    fetch(`${goServer}/info/get`, {
-        method: 'POST',
-        body: JSON.stringify({ "id": tguser })
-    })
-        .then(res => res.json())
-        .then(res => {
-            if (res.money) {
-                document.getElementsByClassName("logo-icon")[0].innerHTML = res.firstname;
-                document.getElementById("money").innerHTML = `${res.money} GT`;
-            } else {
-                // document.getElementById("nickname").innerHTML = `<p class="loginLink">Войти</p>`;
-                // document.getElementsByClassName("loginLink")[0].addEventListener("click", () => { window.open("http://goloads-site.herokuapp.com") });
-            }
-        });
-}
-
-function withdrawMoney() {
-    fetch(`${goServer}/info/withdraw`, {
-        method: 'POST',
-        body: JSON.stringify({ "id": tguser })
-    })
-        .then(res => res.json())
-        .then(res => log(JSON.stringify(res.body)));
 }
 
 function log(what) {
