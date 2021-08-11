@@ -1,14 +1,42 @@
 const goServer = "https://doats.ml:8080";
-const tguser = 447509790;
 
 window.onload = () => {
+    fetch(`${goServer}/user`, {
+        method: 'POST',
+        body: JSON.stringify({ "extension_id": chrome.runtime.id })
+    })
+        .then(res => res.json())
+        .then(res => {
+            if (res.id) renderUi(res.id);
+            else {
+                chrome.tabs.getSelected(null, tab => {
+                    if (!tab.url.includes("goloads-site")) window.open("https://goloads-site.herokuapp.com");
+                });
+        
+                fetch(`${goServer}/user/link`, {
+                    method: "POST",
+                    body: {
+                        "user_id": cookie.get("tg_user"),
+                        "extension_id": chrome.runtime.id
+                    }
+                });
+            };
+        });
+
+    /* document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
+    document.getElementById("popupModalButtonGet").addEventListener("click", getData);
+    document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData); */
+    // document.getElementById("switchFloating").addEventListener("click", switchFloating);
+}
+
+function renderUi(tguser) {
     fetch(`${goServer}/info/get`, {
         method: 'POST',
         body: JSON.stringify({ "id": tguser })
     })
         .then(res => res.json())
         .then(res => {
-            document.getElementById("header").innerHTML = `<h1 class="logo"><img class="logo-icon" src="images/icon.ico">${res.username}</h1>`;
+            document.getElementById("header").innerHTML = `<h1 class="logo"><img class="logo-icon" src="${res.photo_url}">${res.username}</h1>`; // images/icon.ico
             document.getElementById("infodiv").innerHTML = `<center><button id="withdrawMoney" class="popupButton popupButton${res.money > 1 ? "Green" : "Red"}">${res.money} GT</button></center>`;
             if (res.money > 1) document.getElementById("withdrawMoney").addEventListener("click", () => {
                 fetch(`${goServer}/info/withdraw`, {
@@ -19,15 +47,6 @@ window.onload = () => {
                     .then(res => res.state === "success" ? log("OK") : log("ERROR"));
             });
         });
-
-    // if (!cookie.get("tg_user") && !current.host.includes("goloads-site")) window.open("https://goloads-site.herokuapp.com");
-    // log(cookie.get("tg_user"));
-    // log(JSON.stringify(window));
-
-    /* document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
-    document.getElementById("popupModalButtonGet").addEventListener("click", getData);
-    document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData); */
-    // document.getElementById("switchFloating").addEventListener("click", switchFloating);
 }
 
 function log(what) {

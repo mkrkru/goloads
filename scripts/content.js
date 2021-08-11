@@ -1,6 +1,5 @@
 const current = window.location;
 const goServer = "https://doats.ml:8080";
-const tguser = 447509790;
 
 window.onload = () => {
     if (current.host.includes("192") || current.host.includes("magazik") || current.host.includes("goloads-site")) return;
@@ -16,15 +15,22 @@ function createDoc(size, res) {
     let n = document.createElement("div");
     n.innerHTML = `<a href="http://${res.url}" target="_blank"><img src="${res.image}" style="${size}"></a>`;
 
-    n.addEventListener("click", () => {
-        fetch(`${goServer}/clicked`, {
-            method: 'POST',
-            body: JSON.stringify({
-                "banner_id": res.id,
-                "user_id": tguser
-            })
-        })
-    });
+    fetch(`${goServer}/user`, {
+        method: 'POST',
+        body: JSON.stringify({ "extension_id": chrome.runtime.id })
+    })
+        .then(ress => ress.json())
+        .then(ress => {
+            n.addEventListener("click", () => {
+                fetch(`${goServer}/clicked`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "banner_id": res.id,
+                        "user_id": ress.id
+                    })
+                })
+            });
+        });
 
     return n;
 };
@@ -83,9 +89,9 @@ function choose(res) {
 
     } else {
         // if (!global.showFloating) return;
-        let newdoc = createDoc("height: 80px; width: 500px", res);
-        newdoc.className = "addableBannerFloat";
-        document.body.appendChild(newdoc);
+        // let newdoc = createDoc("height: 80px; width: 500px", res);
+        // newdoc.className = "addableBannerFloat";
+        // document.body.appendChild(newdoc);
     };
 
     fetch(`${goServer}/watched`, {
