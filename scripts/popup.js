@@ -1,22 +1,26 @@
 const goServer = "https://doats.ml:8080";
-// const global = require("./global.js");
+const tguser = 447509790;
 
 window.onload = () => {
-    document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
+    // if (!cookie.get("tg_user") && !current.host.includes("goloads-site")) window.open("https://goloads-site.herokuapp.com");
+    // log(cookie.get("tg_user"));
+    // log(JSON.stringify(window));
+
+    /* document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
     document.getElementById("popupModalButtonGet").addEventListener("click", getData);
-    document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData);
+    document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData); */
     // document.getElementById("switchFloating").addEventListener("click", switchFloating);
 
     document.getElementById("withdrawMoney").addEventListener("click", withdrawMoney);
-    
+
     fetch(`${goServer}/info/get`, {
         method: 'POST',
-        body: JSON.stringify({ "id": cookie.get("tg_user") })
+        body: JSON.stringify({ "id": tguser })
     })
         .then(res => res.json())
         .then(res => {
             if (res.money) {
-                document.getElementById("nickname").innerHTML = res.nickname;
+                document.getElementsByClassName("logo-icon")[0].innerHTML = res.firstname;
                 document.getElementById("money").innerHTML = `${res.money} GT`;
             } else {
                 // document.getElementById("nickname").innerHTML = `<p class="loginLink">Войти</p>`;
@@ -28,13 +32,10 @@ window.onload = () => {
 function withdrawMoney() {
     fetch(`${goServer}/info/withdraw`, {
         method: 'POST',
-        body: JSON.stringify({
-            "nickname": document.getElementById("nickname").innerHTML,
-            "money": parseInt(document.getElementById("money").innerHTML)
-        })
+        body: JSON.stringify({ "id": tguser })
     })
         .then(res => res.json())
-        .then(res => log(JSON.stringify(res)));
+        .then(res => log(JSON.stringify(res.body)));
 }
 
 function log(what) {
@@ -45,21 +46,11 @@ function log(what) {
     setTimeout(() => { rr.remove() }, 5000);
 }
 
-function idGen(len) {
+/* function idGen(len) {
     let text = "";
     let charset = "abcdefghijklmnopqrstuvwxyz0123456789";
     for (let i = 0; i < len; i++) text += charset.charAt(Math.floor(Math.random() * charset.length));
     return text;
-}
-
-function switchFloating() {
-    if (global.showFloating) {
-        global.showFloating = false;
-        document.getElementById("switchFloating").innerHTML = "выкл";
-    } else {
-        global.showFloating = true;
-        document.getElementById("switchFloating").innerHTML = "вкл";
-    }
 }
 
 function getData() {
@@ -102,7 +93,7 @@ function deleteData() {
         .then(res => log(res.body));
 
     document.getElementById("oldBannerId").value = "";
-}
+} */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :

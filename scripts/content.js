@@ -1,10 +1,8 @@
 const current = window.location;
 const goServer = "https://doats.ml:8080";
+const tguser = 447509790;
 
 window.onload = () => {
-    // if (!cookie.get("tg_user") && !current.host.includes("goloads-site")) window.open("https://goloads-site.herokuapp.com");
-    console.log(cookie.get("tg_user"));
-
     if (current.host.includes("192") || current.host.includes("magazik") || current.host.includes("goloads-site")) return;
 
     fetch(goServer, { method: 'GET' })
@@ -23,9 +21,9 @@ function createDoc(size, res) {
             method: 'POST',
             body: JSON.stringify({
                 "banner_id": res.id,
-                "user_id": cookie.get("tg_user")
+                "user_id": tguser
             })
-        });
+        })
     });
 
     return n;
@@ -37,14 +35,6 @@ function choose(res) {
     // vk
     // youtube
     // github
-
-    fetch(`${goServer}/watched`, {
-        method: 'POST',
-        body: JSON.stringify({
-            "banner_id": res.id,
-            "user_id": cookie.get("tg_user")
-        })
-    });
 
     if (current.hostname.includes("yandex")) {
 
@@ -100,7 +90,10 @@ function choose(res) {
 
     fetch(`${goServer}/watched`, {
         method: 'POST',
-        body: JSON.stringify({ "id": res.id })
+        body: JSON.stringify({
+            "banner_id": res.id,
+            "user_id": tguser
+        })
     });
 };
 
