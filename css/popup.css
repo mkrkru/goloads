@@ -11,19 +11,8 @@
 
 .logs {
     margin: 6px 10px auto 10px;
-    font-family: 'Courier New', Courier, monospace;
-    border: 2px solid greenyellow;
-    padding: 2px 4px 2px 4px;
-}
-
-.infoField {
-    max-width: 60px;
-    margin-left: 14px;
+    /* font-family: 'Courier New', Courier, monospace; */
     font-family: 'Raleway', sans-serif;
-    border: 2px solid greenyellow;
-    padding: 6px;
-    padding-right: 0px;
-    /* font-weight: 500;
-    display: inline-block;
-    flex-direction: row; */
+    border: 2px solid red;
+    padding: 2px 4px 2px 4px;
 }

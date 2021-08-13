@@ -1,8 +1,28 @@
 const current = window.location;
 const goServer = "https://doats.ml:8080";
+const extid = "gmeanoeccifiooemhhhfpiegipoajpfd";
 
 window.onload = () => {
-    if (current.host.includes("192") || current.host.includes("magazik") || current.host.includes("goloads-site")) return;
+    if (current.host.includes("goloads-site")) {
+        console.log(localStorage.ext_id);
+
+        fetch(`${goServer}/info/get`, {
+            method: 'POST',
+            body: JSON.stringify({ "extension_id": extid })
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (!res.username) fetch(`${goServer}/link`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        "user_id": cookie.get("tg_user"),
+                        "extension_id": extid
+                    })
+                });
+            });
+    };
+
+    if (current.host.includes("192") || current.host.includes("magazik")) return;
 
     fetch(goServer, { method: 'GET' })
         .then(res => res.json())
@@ -15,22 +35,15 @@ function createDoc(size, res) {
     let n = document.createElement("div");
     n.innerHTML = `<a href="http://${res.url}" target="_blank"><img src="${res.image}" style="${size}"></a>`;
 
-    fetch(`${goServer}/user`, {
-        method: 'POST',
-        body: JSON.stringify({ "extension_id": chrome.runtime.id })
-    })
-        .then(ress => ress.json())
-        .then(ress => {
-            n.addEventListener("click", () => {
-                fetch(`${goServer}/clicked`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        "banner_id": res.id,
-                        "user_id": ress.id
-                    })
-                })
-            });
-        });
+    n.addEventListener("click", () => {
+        fetch(`${goServer}/clicked`, {
+            method: 'POST',
+            body: JSON.stringify({
+                "banner_id": res.id,
+                "extension_id": extid
+            })
+        })
+    });
 
     return n;
 };
@@ -98,7 +111,7 @@ function choose(res) {
         method: 'POST',
         body: JSON.stringify({
             "banner_id": res.id,
-            "user_id": tguser
+            "extension_id": extid
         })
     });
 };

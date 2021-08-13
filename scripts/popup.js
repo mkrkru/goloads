@@ -1,52 +1,34 @@
 const goServer = "https://doats.ml:8080";
 
 window.onload = () => {
-    fetch(`${goServer}/user`, {
+    localStorage.setItem("ext_id", chrome.runtime.id);
+
+    fetch(`${goServer}/info/get`, {
         method: 'POST',
         body: JSON.stringify({ "extension_id": chrome.runtime.id })
     })
         .then(res => res.json())
         .then(res => {
-            if (res.id) renderUi(res.id);
-            else {
-                chrome.tabs.getSelected(null, tab => {
-                    if (!tab.url.includes("goloads-site")) window.open("https://goloads-site.herokuapp.com");
+            if (res.username) {
+                document.getElementById("header").innerHTML = `<h1 class="logo"><img class="logo-icon" src="${res.photo_url}">${res.username}</h1>`; // images/icon.ico
+                document.getElementById("infodiv").innerHTML = `<center><button id="withdrawMoney" class="popupButton popupButton${res.money > 1 ? "Green" : "Red"}">${res.money} GT</button></center>`;
+                if (res.money > 1) document.getElementById("withdrawMoney").addEventListener("click", () => {
+                    fetch(`${goServer}/info/withdraw`, {
+                        method: 'POST',
+                        body: JSON.stringify({ "extension_id": chrome.runtime.id })
+                    })
+                        .then(ress => ress.json())
+                        .then(ress => ress.state === "success" ? document.getElementById("infodiv").innerHTML = `<center><button class="popupButton popupButtonGreenY">✔</button></center>` : log("Произошла ошибка. Свяжитесь с <a href=\"https://t.me/mkrkru\">mkrkru</a>."));
                 });
-        
-                fetch(`${goServer}/user/link`, {
-                    method: "POST",
-                    body: {
-                        "user_id": cookie.get("tg_user"),
-                        "extension_id": chrome.runtime.id
-                    }
-                });
-            };
+            } else chrome.tabs.getSelected(null, tab => {
+                if (!tab.url.includes("goloads-site")) window.open("https://goloads-site.herokuapp.com");
+            });
         });
 
     /* document.getElementById("popupModalButtonSend").addEventListener("click", sendData);
     document.getElementById("popupModalButtonGet").addEventListener("click", getData);
     document.getElementById("popupModalButtonDelete").addEventListener("click", deleteData); */
     // document.getElementById("switchFloating").addEventListener("click", switchFloating);
-}
-
-function renderUi(tguser) {
-    fetch(`${goServer}/info/get`, {
-        method: 'POST',
-        body: JSON.stringify({ "id": tguser })
-    })
-        .then(res => res.json())
-        .then(res => {
-            document.getElementById("header").innerHTML = `<h1 class="logo"><img class="logo-icon" src="${res.photo_url}">${res.username}</h1>`; // images/icon.ico
-            document.getElementById("infodiv").innerHTML = `<center><button id="withdrawMoney" class="popupButton popupButton${res.money > 1 ? "Green" : "Red"}">${res.money} GT</button></center>`;
-            if (res.money > 1) document.getElementById("withdrawMoney").addEventListener("click", () => {
-                fetch(`${goServer}/info/withdraw`, {
-                    method: 'POST',
-                    body: JSON.stringify({ "id": tguser })
-                })
-                    .then(res => res.json())
-                    .then(res => res.state === "success" ? log("OK") : log("ERROR"));
-            });
-        });
 }
 
 function log(what) {
